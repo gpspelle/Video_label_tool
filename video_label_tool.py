@@ -37,6 +37,8 @@ def video_label_tool(path):
 argp = argparse.ArgumentParser(description='Label a video')
 argp.add_argument("-path", dest='path', type=str, nargs=1, required=True,
                  help='Usage: -path <path_to_video>')
+argp.add_argument("-multiple", dest='multiple', type=int, nargs=1, 
+                 required=True, help='Usage: -set <True or False>')
 
 try:
     args = argp.parse_args()
@@ -44,12 +46,31 @@ except:
     argp.print_help(sys.stderr)
     exit(1)
 
-annotation_list = video_label_tool(args.path[0])
-print(annotation_list)
 
-out = args.path[0][:-4]
-f = open(out + '.txt', 'w')
-sys.stdout = f
-print(len(annotation_list))
-for i in annotation_list:
-    print(i)
+if args.multiple[0] == 1:
+    annotation_list = video_label_tool(args.path[0])
+    print(annotation_list)
+
+    out = args.path[0][:-4]
+    f = open(out + '.txt', 'w')
+    sys.stdout = f
+    print(len(annotation_list))
+    for i in annotation_list:
+        print(i)
+else:
+
+    cap = cv2.VideoCapture(args.path[0])
+    length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+
+    annotation_list = []
+    for i in range(length):
+       annotation_list.append(1) 
+
+    print(annotation_list)
+
+    out = args.path[0][:-4]
+    f = open(out + '.txt', 'w')
+    sys.stdout = f
+    print(len(annotation_list))
+    for i in annotation_list:
+        print(i)
