@@ -50,13 +50,14 @@ except:
 if args.multiple[0] == 1:
     annotation_list = video_label_tool(args.path[0])
     print(annotation_list)
-
     out = args.path[0][:-4]
-    f = open(out + '.txt', 'w')
-    sys.stdout = f
-    print(len(annotation_list))
-    for i in annotation_list:
-        print(i)
+    np.save(out, annotation_list)
+
+    #f = open(out + '.txt', 'w')
+    #sys.stdout = f
+    #print(len(annotation_list))
+    #for i in annotation_list:
+    #    print(i)
 else:
 
     cap = cv2.VideoCapture(args.path[0])
@@ -67,10 +68,11 @@ else:
        annotation_list.append(1) 
 
     print(annotation_list)
-
     out = args.path[0][:-4]
-    f = open(out + '.txt', 'w')
-    sys.stdout = f
-    print(len(annotation_list))
-    for i in annotation_list:
-        print(i)
+    np.save(out, annotation_list)
+
+    #f = open(out + '.txt', 'w')
+    #sys.stdout = f
+    #print(len(annotation_list))
+    #for i in annotation_list:
+    #    print(i)
